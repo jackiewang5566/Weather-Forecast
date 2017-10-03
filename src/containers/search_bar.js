@@ -9,8 +9,9 @@ class SearchBar extends Component {
 
         this.state = { term: '' };
         // the instance of SearchBar component has a function onInputChange bind the this to onInputChange
-        // and replace the old onInputChange function to avoid the this issue when using it as a callback
+        // and replace the old onInputChange function to avoid the this is undefined issue when using it as a callback
         this.onInputChange = this.onInputChange.bind(this);
+        this.onFormSubmit = this.onFormSubmit.bind(this);
     }
 
 
@@ -23,7 +24,10 @@ class SearchBar extends Component {
     onFormSubmit(event) {
         event.preventDefault();
 
-        // we need to go and fetch weather data
+        // fetch weather data
+        this.props.fetchWeather(this.state.term);
+        // clear the search bar
+        this.setState({ term: '' });
     }
 
     render() {
