@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { fetchWeather } from '../actions/index';
 
-export default class SearchBar extends Component {
+class SearchBar extends Component {
     constructor(props) {
         super(props);
 
@@ -37,4 +40,17 @@ export default class SearchBar extends Component {
             </form>
         )
     }
+
 }
+
+function mapDispatchToProps(dispatch) {
+    // bind actionCreators with dispatch make sure that the action flows
+    // down into the middleware and then reducers inside of our redux
+    // application
+    return bindActionCreators({ fetchWeather }, dispatch); 
+}
+
+// passing null for the first argument, since there is no mapStateToProps here,
+// there is no need for redux maintaining some state here, this container don't
+// need to this argument here, we don't need any state here.
+export default connect(null, mapDispatchToProps)(SearchBar);
